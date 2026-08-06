@@ -33,11 +33,11 @@
          const instructions = {
             windows: [
                "Run the .exe installer and follow the prompts.",
-               "If SmartScreen appears, choose More info â†’ Run anyway.",
+               "If SmartScreen appears, choose More info → Run anyway.",
             ],
             mac: [
                "Open the .dmg and drag Recallith to Applications.",
-               "For an unidentified developer warning, right-click Recallith â†’ Open.",
+               "For an unidentified developer warning, right-click Recallith → Open.",
             ],
             linux: [
                "Run chmod +x Recallith.AppImage, then launch it.",
@@ -47,9 +47,9 @@
          function render() {
             steps.innerHTML = [
                `<div class="step"><b class="step-num">1</b><div><h3>Install the desktop app</h3><p>${instructions[os][0]}</p><details><summary>Common issue</summary><p>${instructions[os][1]}</p></details></div></div>`,
-               `<div class="step"><b class="step-num">2</b><div><h3>Add the Chrome extension</h3><p>Install the browser capture companion.</p><a class="button primary" href="${store}" target="_blank">Add to Chrome</a><p id="extension" class="muted">Waiting for extension detectionâ€¦</p></div></div>`,
+               `<div class="step"><b class="step-num">2</b><div><h3>Add the Chrome extension</h3><p>Install the browser capture companion.</p><a class="button primary" href="${store}" target="_blank">Add to Chrome</a><p id="extension" class="muted">Waiting for extension detection...</p></div></div>`,
                `<div class="step"><b class="step-num">3</b><div><h3>First launch</h3><p>Choose your AI provider and capture categories. Encryption keys are held in your OS keychain and cannot be recovered if removed.</p></div></div>`,
-               `<div class="step"><b class="step-num">4</b><div><h3>Verify it works</h3><p>Ask a unique question in Claude or ChatGPT, open Recallith, and search for the same phrase.</p><span style="color:#68c987">âœ“ Your private memory is ready</span></div></div>`,
+               `<div class="step"><b class="step-num">4</b><div><h3>Verify it works</h3><p>Ask a unique question in Claude or ChatGPT, open Recallith, and search for the same phrase.</p><span style="color:#68c987">✓ Your private memory is ready</span></div></div>`,
             ].join("");
          }
          document.querySelectorAll(".tab").forEach(
@@ -67,7 +67,7 @@
          window.addEventListener("message", (event) => {
             if (event.data?.type === "RECALLITH_EXTENSION_PRESENT")
                document.querySelector("#extension").textContent =
-                  "Extension installed âœ“";
+                  "Extension installed ✓";
          });
          render();
       </script>

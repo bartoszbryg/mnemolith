@@ -3,7 +3,7 @@
    <head>
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width" />
-      <title>Recallith â€” Your AI memory layer</title>
+      <title>Recallith - Your AI memory layer</title>
       <link
          href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap"
          rel="stylesheet"
@@ -19,7 +19,7 @@
                ><a href="#pricing">Pricing</a
                ><a href="changelog.html">Changelog</a>
             </div>
-            <a class="button primary" href="download.html">Download free</a>
+            <a class="button primary" href="install.html">Download free</a>
          </div>
       </nav>
       <header class="hero wrap">
@@ -29,15 +29,15 @@
          </h1>
          <p class="lead">
             Recallith silently captures your browser activity and AI
-            conversations, then lets you search them with plain English â€” all
+            conversations, then lets you search them with plain English - all
             stored privately on your device.
          </p>
          <div class="actions">
-            <a class="button primary" href="download.html">Download for free</a
+            <a class="button primary" href="install.html">Download for free</a
             ><a class="button" href="#features">See how it works</a>
          </div>
          <div class="trust">
-            No account Â· No cloud Â· No tracking Â· Open source
+            No account. No cloud. No tracking. Open source
          </div>
          <div class="terminal">
             <div class="query" id="query"></div>
@@ -51,15 +51,15 @@
          <h2>Memory without the maintenance.</h2>
          <div class="grid">
             <article class="card">
-               <h3>â—‰ It watches, silently</h3>
+               <h3>◉ It watches, silently</h3>
                <p>Passive browser-tab and LLM capture.</p>
             </article>
             <article class="card">
-               <h3>â–£ Indexed on your device</h3>
+               <h3>▣ Indexed on your device</h3>
                <p>A private local vector database.</p>
             </article>
             <article class="card">
-               <h3>â—Œ Ask anything</h3>
+               <h3>◌ Ask anything</h3>
                <p>Natural-language retrieval.</p>
             </article>
             <article class="card">
@@ -156,7 +156,7 @@
                <b>Company</b><a href="mailto:hello@recallith.app">Email us</a>
             </div>
          </div>
-         <div class="wrap">Built with obsession Â· Â© 2026 Recallith</div>
+         <div class="wrap">Built with obsession. © 2026 Recallith</div>
       </footer>
       <script type="module">
          import Recallith from "./js/deeplink.js";
@@ -185,9 +185,9 @@
             await new Promise((resolve) => setTimeout(resolve, 1000));
             await type(answerElement, response, 10);
             chipsElement.innerHTML = [
-               "Claude Â· 3 days ago",
-               "arxiv.org Â· 3 days ago",
-               "ChatGPT Â· 3 days ago",
+               "Claude. 3 days ago",
+               "arxiv.org. 3 days ago",
+               "ChatGPT. 3 days ago",
             ]
                .map((item) => `<span class="chip">${item}</span>`)
                .join("");
