@@ -13,7 +13,7 @@ const Recallith = {
 
    openSearch(query) {
       const fallback =
-         `download.html?from=search&q=${encodeURIComponent(query)}`;
+         `install.html?from=search&q=${encodeURIComponent(query)}`;
 
       let applicationOpened = false;
 
