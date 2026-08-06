@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Recallith Changelog</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/tokens.css" />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="wrap">
+        <a class="wordmark" href="index.html">Recallith</a>
+        <a href="https://github.com/bartoszbryg/mnemolith/releases.atom">RSS</a>
+      </div>
+    </nav>
+    <main class="section wrap">
+      <div class="eyebrow">Version history</div>
+      <h2>Changelog</h2>
+      <div id="releases">
+        <div class="skeleton"></div>
+        <div class="skeleton"></div>
+      </div>
+    </main>
+    <script>
+      const repo = "bartoszbryg/mnemolith";
+      const target = document.querySelector("#releases");
+
+      fetch(`https://api.github.com/repos/${repo}/releases`)
+        .then((response) => {
+          if (!response.ok) throw new Error("Could not load releases");
+          return response.json();
+        })
+        .then((releases) => {
+          if (releases.length === 0) {
+            target.innerHTML = `<p>No releases have been published yet. <a href="https://github.com/${repo}">View the project on GitHub &rarr;</a></p>`;
+            return;
+          }
+
+          target.innerHTML = releases
+            .map(
+              (release, index) => `
+                <article class="card" id="${release.tag_name.replaceAll(".", "-")}" style="margin-bottom:18px">
+                  <div>${index === 0 ? '<span class="badge">Latest</span>' : ""}</div>
+                  <h3>${release.name || release.tag_name}</h3>
+                  <p class="muted">${new Date(release.published_at).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}</p>
+                  <div>${marked.parse(release.body || "No release notes.")}</div>
+                  <a class="button" href="${release.html_url}">Download this version</a>
+                </article>`
+            )
+            .join("");
+        })
+        .catch(() => {
+          target.innerHTML = `<p>Could not load releases. <a href="https://github.com/${repo}/releases">View them on GitHub &rarr;</a></p>`;
+        });
+    </script>
+  </body>
+</html>
