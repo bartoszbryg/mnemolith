@@ -1,31 +1,70 @@
 # Mnemolith
 
-Mnemolith is the public product showcase for **Recallith**, a local-first memory application that makes previously viewed browser activity and supported AI conversations searchable.
+[![License: BUSL-1.1](https://img.shields.io/badge/license-BUSL--1.1-d4af37.svg)](LICENSE)
+[![Windows](https://img.shields.io/badge/Windows-10%2B-0078D4.svg)](website/install.html)
+[![Website](https://img.shields.io/badge/website-public-2ea44f.svg)](website/index.html)
 
-## What Recallith does
+Mnemolith is the public home of Recallith, a private memory layer for your digital life. Recallith helps you find browser activity and supported AI conversations you have already seen. Your captured memory stays on your device and remains under your control.
 
-- Captures browser activity and supported AI conversations with explicit user controls.
-- Stores memories locally on the user's device.
-- Builds a searchable timeline from captured activity.
-- Supports natural-language recall through a local AI provider.
-- Provides controls for pausing capture, excluding sites, exporting data, and deleting stored memories.
+## Demo
+
+The landing-page walkthrough in [`website/index.html`](website/index.html) shows the recall flow. A recorded demo can be added later without changing the application or exposing private data.
+
+## How it works
+
+```mermaid
+flowchart LR
+    A["Browser activity and supported AI conversations"] --> B["Explicit capture controls"]
+    B --> C["Encrypted local memory"]
+    C --> D["Local indexing and retrieval"]
+    D --> E["Search and timeline in Recallith"]
+```
+
+Recallith combines passive, user-controlled capture with local storage and semantic retrieval. Users can pause capture, exclude sites, inspect their timeline, export eligible data, and delete selected memories.
+
+## Technical highlights
+
+- Local-first storage with encrypted text and OS-managed key material.
+- Browser and supported LLM conversation capture with explicit controls.
+- Semantic retrieval and natural-language recall through a locally selected model.
+- Timeline reconstruction, source-event attribution, deduplication, export, and targeted deletion.
+- A desktop deep-link protocol used by the website's **Try it** experience.
+
+## Supported surfaces
+
+| Surface | Public status |
+| --- | --- |
+| Windows desktop | Public beta release available |
+| Chrome/Chromium companion | Supported by the product; source is not published here |
+| ChatGPT | Capture supported |
+| Claude | Capture supported |
+| Gemini | Capture supported |
+| Microsoft Copilot | Capture supported |
+| Perplexity | Compatibility is tested as the site evolves |
+| macOS and Linux | Installation guidance is provisional; packaged releases are not yet published |
+
+## Research background
+
+Recallith explores practical episodic-memory retrieval for personal computing: capturing timestamped activity, preserving source attribution, grouping events into sessions, and retrieving relevant evidence before generating a narrative. The product is designed to make recall useful without turning private history into a cloud dataset.
 
 ## Public repository scope
 
-This repository intentionally contains only the public-facing website, brand assets, installation guidance, and approved release artifacts. It does **not** contain Recallith's backend, desktop application source, browser-extension source, encryption implementation, licensing system, private feature logic, signing material, or secrets.
+This repository intentionally contains only the public website, brand assets, installation guidance, public documentation, and approved release artifacts. It does **not** contain Recallith's backend, desktop source, browser-extension source, encryption implementation, commercial-license enforcement, signing material, private feature logic, secrets, or user data.
 
-The omission of those components is deliberate. This repository is a product showcase and distribution surface, not the complete Recallith source tree.
+The full backend and application implementation are closed source. This repository is a product showcase and distribution surface, not the complete Recallith source tree.
 
 ## Repository layout
 
 ```text
 .
+|-- LICENSE
 |-- README.md
 |-- release-assets/
 |   `-- Recallith-Setup.exe
 `-- website/
     |-- index.html
     |-- install.html
+    |-- changelog.html
     |-- assets/
     |   `-- mnemolith.svg
     |-- css/
@@ -36,28 +75,24 @@ The omission of those components is deliberate. This repository is a product sho
 
 ## Preview the website locally
 
-From the repository root, run:
+From the repository root:
 
 ```powershell
 python -m http.server 8080 --directory website
 ```
 
-Then open [http://localhost:8080/](http://localhost:8080/).
+Then open [http://localhost:8080/](http://localhost:8080/). The **Try it** action invokes the registered `recallith://` desktop protocol. If Recallith does not open, the website falls back to the installation guide and preserves the sample question.
 
-The website's **Try it** action uses the registered `recallith://` desktop protocol. If Recallith is not installed or the protocol prompt is declined, the public website falls back to its installation guide.
+## Installation and releases
 
-## Installation
-
-See the public [installation guide](website/install.html) for supported-platform instructions. The Windows release artifact is available under `release-assets/` when included with the current public release.
+- Follow the [installation guide](website/install.html).
+- Review the [public changelog](website/changelog.html).
+- Download the current Windows installer from [GitHub Releases](https://github.com/bartoszbryg/mnemolith/releases/latest).
 
 ## Privacy and security
 
-Recallith is designed around local storage and explicit capture controls. Never submit API keys, session tokens, license-signing material, private keys, personal memory exports, local databases, or diagnostic evidence containing private activity to this repository.
-
-## Project status
-
-Recallith is under active development. Product behavior, platform support, packaging, and public documentation may change as testing continues.
+Never submit API keys, session tokens, license-signing material, private keys, personal memory exports, local databases, or diagnostic evidence containing private activity to this repository.
 
 ## License
 
-No license is granted for the proprietary Recallith application or for components not explicitly published with a license. Public website materials remain subject to the repository owner's stated terms.
+The materials published in this repository are source-available under the [Business Source License 1.1](LICENSE). Personal, non-commercial use is permitted under the Additional Use Grant. Commercial use requires a separate written license from the licensor. On the Change Date, the licensed work transitions to the Apache License 2.0 as specified in `LICENSE`.
