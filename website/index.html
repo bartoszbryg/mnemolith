@@ -1,203 +1,299 @@
 ﻿<!doctype html>
 <html lang="en">
-   <head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width" />
-      <title>Recallith - Your AI memory layer</title>
-      <link
-         href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap"
-         rel="stylesheet"
-      />
-      <link rel="stylesheet" href="css/tokens.css" />
-   </head>
-   <body>
-      <nav class="nav">
-         <div class="wrap">
-            <a class="wordmark" href="index.html">Recallith</a>
-            <div class="links">
-               <a href="#features">Features</a><a href="#privacy">Privacy</a
-               ><a href="#pricing">Pricing</a
-               ><a href="changelog.html">Changelog</a>
-            </div>
-            <a class="button primary" href="install.html">Download free</a>
-         </div>
-      </nav>
-      <header class="hero wrap">
-         <div class="eyebrow">Your AI memory layer</div>
-         <h1>
-            Everything you looked at. Everything you asked. Finally findable.
-         </h1>
-         <p class="lead">
-            Recallith silently captures your browser activity and AI
-            conversations, then lets you search them with plain English - all
-            stored privately on your device.
-         </p>
-         <div class="actions">
-            <a class="button primary" href="install.html">Download for free</a
-            ><a class="button" href="#features">See how it works</a>
-         </div>
-         <div class="trust">
-            No account. No cloud. No tracking. Open source
-         </div>
-         <div class="terminal">
-            <div class="query" id="query"></div>
-            <div class="answer" id="answer"></div>
-            <div class="chips" id="chips"></div>
-            <button class="button" id="try">Try it</button>
-         </div>
-      </header>
-      <section class="section wrap" id="features">
-         <div class="eyebrow">How it works</div>
-         <h2>Memory without the maintenance.</h2>
-         <div class="grid">
-            <article class="card">
-               <h3>◉ It watches, silently</h3>
-               <p>Passive browser-tab and LLM capture.</p>
-            </article>
-            <article class="card">
-               <h3>▣ Indexed on your device</h3>
-               <p>A private local vector database.</p>
-            </article>
-            <article class="card">
-               <h3>◌ Ask anything</h3>
-               <p>Natural-language retrieval.</p>
-            </article>
-            <article class="card">
-               <h3>LLM Memory</h3>
-               <p>ChatGPT, Claude, Gemini, Perplexity, and Copilot.</p>
-            </article>
-            <article class="card">
-               <h3>Browser context</h3>
-               <p>Page content and time spent, not only URLs.</p>
-            </article>
-            <article class="card">
-               <h3>Timeline view</h3>
-               <p>Reconstruct any day and delete anything.</p>
-            </article>
-         </div>
-      </section>
-      <section class="section manifesto" id="privacy">
-         <div class="wrap">
-            <h2>
-               We built this because we were tired of giving our data away.
-            </h2>
-            <div class="columns">
-               <div>
-                  <h3>What Recallith stores</h3>
-                  <ul>
-                     <li>A local SQLite database</li>
-                     <li>
-                        AES-256 encrypted text with its key in your OS keychain
-                     </li>
-                     <li>Local embeddings for semantic search</li>
-                  </ul>
-               </div>
-               <div>
-                  <h3>What Recallith never does</h3>
-                  <ul>
-                     <li>Send captured data to our server</li>
-                     <li>Require an account or email</li>
-                     <li>Train on your activity</li>
-                     <li>Share data with advertisers</li>
-                  </ul>
-               </div>
-            </div>
-            <div class="mono">
-               Data location: %APPDATA%\recallith\ Encryption: AES-256-GCM via
-               OS keychain External calls: zero in Local mode
-            </div>
-         </div>
-      </section>
-      <section class="section wrap" id="pricing">
-         <h2>Start free. Stay local.</h2>
-         <div class="pricing">
-            <article class="card">
-               <h3>Free</h3>
-               <div class="price">$0</div>
-               <ul>
-                  <li>Browser + LLM capture</li>
-                  <li>30-day history</li>
-                  <li>10 queries/day</li>
-                  <li>Local Ollama</li>
-                  <li>10,000 memories</li>
-               </ul>
-            </article>
-            <article class="card popular">
-               <span class="badge">Most popular</span>
-               <h3>Pro</h3>
-               <div class="price">$9/mo</div>
-               <p>$72/year</p>
-               <ul>
-                  <li>Unlimited history and queries</li>
-                  <li>Screen capture</li>
-                  <li>Claude + OpenAI</li>
-                  <li>JSON/CSV export</li>
-                  <li>Priority support</li>
-               </ul>
-            </article>
-         </div>
-      </section>
-      <footer class="footer">
-         <div class="wrap footer-grid">
-            <div>
-               <div class="wordmark">Recallith</div>
-               <p>Private memory for your digital life.</p>
-            </div>
-            <div>
-               <b>Product</b><a href="#features">Features</a
-               ><a href="#pricing">Pricing</a>
-            </div>
-            <div><b>Legal</b><a href="#privacy">Privacy</a></div>
-            <div>
-               <b>Community</b
-               ><a href="https://github.com/bartoszbryg/mnemolith">GitHub</a>
-            </div>
-            <div>
-               <b>Company</b><a href="mailto:hello@recallith.app">Email us</a>
-            </div>
-         </div>
-         <div class="wrap">Built with obsession. © 2026 Recallith</div>
-      </footer>
-      <script type="module">
-         import Recallith from "./js/deeplink.js";
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Recallith — Your AI memory layer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/tokens.css">
+    <style>
+      .memory-cta {
+        position: relative;
+        isolation: isolate;
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        width: min(100%, 310px);
+        min-height: 66px;
+        padding: 10px 15px 10px 10px;
+        overflow: hidden;
+        border: 1px solid #c9a84c66;
+        border-radius: 12px;
+        background: linear-gradient(120deg, #1b1810, #121212 60%);
+        color: var(--text);
+        font: inherit;
+        text-align: left;
+        cursor: pointer;
+        box-shadow: 0 0 0 1px #000 inset, 0 12px 35px #0006;
+        transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+      }
 
-         const queryElement = document.querySelector("#query");
-         const answerElement = document.querySelector("#answer");
-         const chipsElement = document.querySelector("#chips");
-         const tryButton = document.querySelector("#try");
-         const question =
-            "What was I researching about graph neural networks last week?";
-         const response =
-            "On Tuesday you spent 40 minutes on this topic. You started with a Claude conversation about message passing, then opened 3 papers on arxiv, and finished by asking ChatGPT to summarize the Weisfeiler-Leman test.";
+      .memory-cta::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        inset: -2px auto -2px -45%;
+        width: 35%;
+        transform: skewX(-18deg);
+        background: linear-gradient(90deg, transparent, #c9a84c20, transparent);
+        transition: left .55s ease;
+      }
 
-         async function type(element, text, speed) {
-            element.textContent = "";
-            for (const character of text) {
-               element.textContent += character;
-               await new Promise((resolve) => setTimeout(resolve, speed));
-            }
-         }
+      .memory-cta:hover {
+        transform: translateY(-2px);
+        border-color: var(--accent);
+        box-shadow: 0 0 0 1px #000 inset, 0 15px 42px #0009, 0 0 28px #c9a84c18;
+      }
 
-         async function demo() {
-            answerElement.textContent = "";
-            chipsElement.innerHTML = "";
-            await type(queryElement, question, 20);
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-            await type(answerElement, response, 10);
-            chipsElement.innerHTML = [
-               "Claude. 3 days ago",
-               "arxiv.org. 3 days ago",
-               "ChatGPT. 3 days ago",
-            ]
-               .map((item) => `<span class="chip">${item}</span>`)
-               .join("");
-         }
+      .memory-cta:hover::before {
+        left: 120%;
+      }
 
-         tryButton.addEventListener("click", () =>
-            Recallith.openSearch(question),
-         );
-         demo();
-         setInterval(demo, 10000);
-      </script>
-   </body>
+      .memory-cta:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 4px;
+      }
+
+      .memory-cta-icon {
+        display: grid;
+        flex: 0 0 44px;
+        height: 44px;
+        place-items: center;
+        border-radius: 10px;
+        background: var(--accent);
+        color: #111;
+        box-shadow: 0 0 22px #c9a84c30;
+      }
+
+      .memory-cta-icon svg {
+        width: 23px;
+        height: 23px;
+        fill: currentColor;
+      }
+
+      .memory-cta-copy {
+        display: flex;
+        min-width: 0;
+        flex: 1;
+        flex-direction: column;
+        line-height: 1.25;
+      }
+
+      .memory-cta-copy strong {
+        font-size: 14px;
+      }
+
+      .memory-cta-copy small {
+        margin-top: 3px;
+        color: #8e8b82;
+        font-size: 11px;
+      }
+
+      .memory-cta-arrow {
+        color: var(--accent);
+        font-size: 22px;
+        transition: transform .22s ease;
+      }
+
+      .memory-cta:hover .memory-cta-arrow {
+        transform: translateX(4px);
+      }
+
+      .memory-cta.is-opening .memory-cta-icon {
+        animation: cta-glow .75s ease-in-out infinite alternate;
+      }
+
+      .memory-cta.is-opening .memory-cta-arrow {
+        transform: translateX(5px);
+      }
+
+      @keyframes cta-glow {
+        to {
+          box-shadow: 0 0 30px #c9a84c88;
+          transform: scale(1.04);
+        }
+      }
+
+      @media (max-width: 760px) {
+        .memory-cta {
+          width: 100%;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+
+        .memory-cta,
+        .memory-cta::before,
+        .memory-cta-arrow {
+          transition: none;
+        }
+
+        .memory-cta.is-opening .memory-cta-icon {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="wrap"><a class="wordmark" href="index.html">Recallith</a>
+        <div class="links"><a href="#features">Features</a><a href="#privacy">Privacy</a><a href="#pricing">Pricing</a><a href="changelog.html">Changelog</a></div><a class="button primary" href="download.html">Download free</a>
+      </div>
+    </nav>
+    <header class="hero wrap">
+      <div class="eyebrow">Your AI memory layer</div>
+      <h1>Everything you looked at. Everything you asked. Finally findable.</h1>
+      <p class="lead">Recallith silently captures your browser activity and AI conversations, then lets you search them with plain English — all stored privately on your device.</p>
+      <div class="actions"><a class="button primary" href="download.html">Download for free</a><a class="button" href="#features">See how it works</a></div>
+      <div class="trust">No account · No cloud · No tracking · Open source</div>
+      <div class="terminal">
+        <div class="query" id="query"></div>
+        <div class="answer" id="answer"></div>
+        <div class="chips" id="chips"></div><button class="memory-cta" id="try" type="button" aria-label="Open this search in Recallith"><span class="memory-cta-icon" aria-hidden="true"><svg viewBox="0 0 24 24" role="img">
+              <path d="m12 2 1.8 5.1L19 9l-5.2 1.9L12 16l-1.8-5.1L5 9l5.2-1.9L12 2Z" />
+              <path d="m19 15 .8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15Z" />
+            </svg></span><span class="memory-cta-copy"><strong id="try-label">Open in Recallith</strong><small>Search your private memory</small></span><span class="memory-cta-arrow" aria-hidden="true">→</span></button>
+      </div>
+    </header>
+    <section class="section wrap" id="features">
+      <div class="eyebrow">How it works</div>
+      <h2>Memory without the maintenance.</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>◉ It watches, silently</h3>
+          <p>Passive browser-tab and LLM capture.</p>
+        </article>
+        <article class="card">
+          <h3>▣ Indexed on your device</h3>
+          <p>A private local vector database.</p>
+        </article>
+        <article class="card">
+          <h3>◌ Ask anything</h3>
+          <p>Natural-language retrieval.</p>
+        </article>
+        <article class="card">
+          <h3>LLM Memory</h3>
+          <p>ChatGPT, Claude, Gemini, Perplexity, and Copilot.</p>
+        </article>
+        <article class="card">
+          <h3>Browser context</h3>
+          <p>Page content and time spent, not only URLs.</p>
+        </article>
+        <article class="card">
+          <h3>Timeline view</h3>
+          <p>Reconstruct any day and delete anything.</p>
+        </article>
+      </div>
+    </section>
+    <section class="section manifesto" id="privacy">
+      <div class="wrap">
+        <h2>We built this because we were tired of giving our data away.</h2>
+        <div class="columns">
+          <div>
+            <h3>What Recallith stores</h3>
+            <ul>
+              <li>A local SQLite database</li>
+              <li>AES-256 encrypted text with its key in your OS keychain</li>
+              <li>Local embeddings for semantic search</li>
+            </ul>
+          </div>
+          <div>
+            <h3>What Recallith never does</h3>
+            <ul>
+              <li>Send captured data to our server</li>
+              <li>Require an account or email</li>
+              <li>Train on your activity</li>
+              <li>Share data with advertisers</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mono">Data location: %APPDATA%\recallith\ Encryption: AES-256-GCM via OS keychain External calls: zero in Local mode</div>
+      </div>
+    </section>
+    <section class="section wrap" id="pricing">
+      <h2>Start free. Stay local.</h2>
+      <div class="pricing">
+        <article class="card">
+          <h3>Free</h3>
+          <div class="price">$0</div>
+          <ul>
+            <li>Browser + LLM capture</li>
+            <li>30-day history</li>
+            <li>10 queries/day</li>
+            <li>Local Ollama</li>
+            <li>10,000 memories</li>
+          </ul>
+        </article>
+        <article class="card popular"><span class="badge">Most popular</span>
+          <h3>Pro</h3>
+          <div class="price">$9/mo</div>
+          <p>$72/year</p>
+          <ul>
+            <li>Unlimited history and queries</li>
+            <li>Screen capture</li>
+            <li>Claude + OpenAI</li>
+            <li>JSON/CSV export</li>
+            <li>Priority support</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="wrap footer-grid">
+        <div>
+          <div class="wordmark">Recallith</div>
+          <p>Private memory for your digital life.</p>
+        </div>
+        <div><b>Product</b><a href="#features">Features</a><a href="#pricing">Pricing</a></div>
+        <div><b>Legal</b><a href="#privacy">Privacy</a></div>
+        <div><b>Community</b><a href="https://github.com/bartoszbryg/Recallith">GitHub</a></div>
+        <div><b>Company</b><a href="mailto:hello@recallith.app">Email us</a></div>
+      </div>
+      <div class="wrap">Built with obsession · © 2026 Recallith</div>
+    </footer>
+    <script type="module">
+      import Recallith from "./js/deeplink.js";
+      const queryElement = document.querySelector("#query");
+      const answerElement = document.querySelector("#answer");
+      const chipsElement = document.querySelector("#chips");
+      const tryButton = document.querySelector("#try");
+      const tryLabel = document.querySelector("#try-label");
+      const question = "What was I researching about graph neural networks last week?";
+      const response = "On Tuesday you spent 40 minutes on this topic. You started with a Claude conversation about message passing, then opened 3 papers on arxiv, and finished by asking ChatGPT to summarize the Weisfeiler-Leman test.";
+      let demoRun = 0;
+      const wait = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
+      async function type(element, text, speed, run) {
+        element.textContent = "";
+        for (const character of text) {
+          if (run !== demoRun) return false;
+          element.textContent += character;
+          await wait(speed);
+        }
+        return true;
+      }
+      async function demo() {
+        const run = ++demoRun;
+        answerElement.textContent = "";
+        chipsElement.innerHTML = "";
+        if (!await type(queryElement, question, 20, run)) return;
+        await wait(1000);
+        if (run !== demoRun) return;
+        if (!await type(answerElement, response, 10, run)) return;
+        if (run !== demoRun) return;
+        chipsElement.innerHTML = ["Claude · 3 days ago", "arxiv.org · 3 days ago", "ChatGPT · 3 days ago"].map(item => `<span class="chip">${item}</span>`).join("");
+        await wait(10000);
+        if (run === demoRun) demo();
+      }
+      tryButton.addEventListener("click", () => {
+        tryButton.classList.add("is-opening");
+        tryLabel.textContent = "Opening Recallith…";
+        Recallith.openSearch(question);
+        setTimeout(() => {
+          tryButton.classList.remove("is-opening");
+          tryLabel.textContent = "Open in Recallith";
+        }, 2200);
+      });
+      demo();
+    </script>
+  </body>
 </html>

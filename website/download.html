@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Download Recallith</title>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/tokens.css">
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="wrap"><a class="wordmark" href="index.html">Recallith</a><a class="button" href="install.html">Install guide</a></div>
+    </nav>
+    <div id="banner"></div>
+    <main class="section wrap">
+      <div class="eyebrow">Download</div>
+      <h2>Put your memory back on your machine.</h2>
+      <div id="downloads" class="actions"></div>
+      <p id="release" class="muted"></p>
+      <section id="next" hidden>
+        <h2>What’s next</h2>
+        <div class="grid">
+          <div class="card">1. Install the desktop app</div>
+          <div class="card">2. <a href="https://chromewebstore.google.com/search/Recallith">Add the Chrome extension</a></div>
+          <div class="card">3. Choose your capture settings</div>
+          <div class="card">4. Start asking questions</div>
+        </div>
+      </section>
+      <details class="card" style="margin-top:30px">
+        <summary>System requirements</summary>
+        <p>macOS 12+ · Windows 10+ · Ubuntu 20.04+ · ~300 MB disk · 4 GB RAM · Chrome or Chromium</p>
+      </details>
+      <details class="card" style="margin-top:12px">
+        <summary>SHA-256 checksums and verification</summary>
+        <pre class="mono" id="checksums">Checksums are published with each signed GitHub release.</pre>
+        <p>Windows: <code>Get-FileHash .\Recallith-installer.exe</code><br>macOS/Linux: <code>shasum -a 256 Recallith-download</code></p>
+      </details>
+    </main>
+    <script>
+      const repo = "bartoszbryg/Recallith",
+        container = document.querySelector("#downloads"),
+        fallback = `https://github.com/${repo}/releases/latest`;
+      if (new URLSearchParams(location.search).get("from") === "search") banner.innerHTML = '<div class="notice">Install Recallith first — it takes 2 minutes</div>';
+      const ua = navigator.userAgent;
+      let preferred = /Windows/i.test(ua) ? "msi" : /Mac/i.test(ua) ? "aarch64.dmg" : /Linux/i.test(ua) ? "AppImage" : "";
+      fetch(`https://api.github.com/repos/${repo}/releases/latest`).then(r => {
+        if (!r.ok) throw Error();
+        return r.json()
+      }).then(data => {
+        const specs = [
+          ["Mac (Apple Silicon)", "_aarch64.dmg"],
+          ["Intel Mac", "_x64.dmg"],
+          ["Windows (.msi)", ".msi"],
+          ["Linux (.AppImage)", ".AppImage"],
+          ["Linux (.deb)", ".deb"]
+        ];
+        container.innerHTML = specs.map(([label, pattern]) => {
+          const asset = data.assets.find(a => a.name.includes(pattern));
+          if (!asset) return "";
+          return `<a class="button ${preferred&&pattern.includes(preferred)?"primary":""}" href="${asset.browser_download_url}">Download for ${label}</a>`
+        }).join("");
+        release.textContent = `${data.tag_name} · ${new Date(data.published_at).toLocaleDateString()}`;
+        container.querySelectorAll("a").forEach(a => a.onclick = () => next.hidden = false)
+      }).catch(() => container.innerHTML = `<a class="button primary" href="${fallback}">View downloads on GitHub</a>`);
+    </script>
+  </body>
+</html>
