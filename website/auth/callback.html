@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>Signing in — Recallith</title>
+        <style>
+            html,
+            body {
+                height: 100%;
+            }
+            body {
+                display: grid;
+                place-items: center;
+                margin: 0;
+                background: #0a0a0a;
+                color: #e8e6e0;
+                font:
+                    14px Inter,
+                    sans-serif;
+            }
+            .loader {
+                text-align: center;
+            }
+            .spinner {
+                width: 32px;
+                height: 32px;
+                margin: 0 auto 15px;
+                border: 2px solid #2a2a2a;
+                border-top-color: #c9a84c;
+                border-radius: 50%;
+                animation: spin 0.8s linear infinite;
+            }
+            @keyframes spin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="loader">
+            <div class="spinner"></div>
+            <span>Completing secure sign-in…</span>
+        </div>
+        <script type="module">
+            import { supabase } from "../js/auth.js";
+            const query = new URLSearchParams(location.search);
+            const hash = new URLSearchParams(location.hash.slice(1));
+            const recovery = query.get("type") === "recovery" || hash.get("type") === "recovery";
+            const code = query.get("code");
+            try {
+                const { data, error } = code
+                    ? await supabase.auth.exchangeCodeForSession(code)
+                    : await supabase.auth.getSession();
+                if (error || !data.session) throw error || new Error("No authentication session");
+                location.replace(recovery ? "/reset-password.html" : "/account.html");
+            } catch {
+                location.replace(recovery ? "/login.html?error=recovery_failed" : "/login.html?error=oauth_failed");
+            }
+        </script>
+    </body>
+</html>
