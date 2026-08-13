@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>Your account — Recallith</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="css/tokens.css" />
+        <style>
+            .account-main {
+                width: min(860px, calc(100% - 32px));
+                margin: 0 auto;
+                padding: 65px 0 90px;
+            }
+            .account-heading {
+                display: flex;
+                align-items: end;
+                justify-content: space-between;
+                margin-bottom: 28px;
+            }
+            .account-heading h1 {
+                margin: 0;
+                font-size: clamp(48px, 8vw, 72px);
+            }
+            .dashboard {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 18px;
+            }
+            .dashboard .card {
+                padding: 28px;
+            }
+            .profile-card,
+            .connection-card {
+                grid-column: 1/-1;
+            }
+            .profile {
+                display: flex;
+                align-items: center;
+                gap: 18px;
+            }
+            .profile-avatar {
+                display: grid;
+                width: 72px;
+                height: 72px;
+                flex: 0 0 72px;
+                place-items: center;
+                border-radius: 50%;
+                background: var(--accent);
+                color: #111;
+                font-size: 22px;
+                font-weight: 700;
+            }
+            .profile h2,
+            .card-title {
+                margin: 0 0 6px;
+                font: 32px "Instrument Serif";
+            }
+            .profile p {
+                margin: 2px 0;
+                color: var(--muted);
+            }
+            .plan-head {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 22px;
+            }
+            .plan-badge {
+                padding: 5px 10px;
+                border-radius: 99px;
+                background: #2a2a2a;
+                color: #bbb;
+                font-size: 12px;
+                font-weight: 700;
+            }
+            .plan-badge.pro {
+                background: var(--accent);
+                color: #111;
+            }
+            .feature-list {
+                padding: 0;
+                list-style: none;
+                color: #aaa;
+            }
+            .feature-list li {
+                margin: 10px 0;
+            }
+            .card-action {
+                display: block;
+                width: 100%;
+                margin-top: 22px;
+                text-align: center;
+            }
+            .pro-active {
+                color: #68c987;
+            }
+            .release-meta {
+                margin: 10px 0 20px;
+                color: var(--muted);
+            }
+            .steps {
+                margin: 18px 0 24px;
+                padding-left: 22px;
+            }
+            .steps li {
+                margin: 9px 0;
+                padding-left: 7px;
+            }
+            .loading-card {
+                min-height: 180px;
+            }
+            .download-options {
+                display: grid;
+                gap: 9px;
+            }
+            .download-options .button {
+                text-align: center;
+            }
+            .account-email {
+                color: var(--muted);
+            }
+            [data-auth-actions] {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+            @media (max-width: 700px) {
+                .dashboard {
+                    grid-template-columns: 1fr;
+                }
+                .profile-card,
+                .connection-card {
+                    grid-column: auto;
+                }
+                .account-heading {
+                    align-items: start;
+                    flex-direction: column;
+                    gap: 8px;
+                }
+                .profile {
+                    align-items: flex-start;
+                }
+                [data-auth-actions] .account-email {
+                    display: none;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="nav">
+            <div class="wrap">
+                <a class="wordmark" href="index.html">Recallith</a>
+                <div class="links"><a href="pricing.html">Pricing</a><a href="changelog.html">Changelog</a></div>
+                <div data-auth-actions>
+                    <span class="account-email" id="nav-email"></span>
+                    <button class="button" id="sign-out" type="button">Sign out</button>
+                </div>
+            </div>
+        </nav>
+        <main class="account-main">
+            <header class="account-heading">
+                <div>
+                    <div class="eyebrow">Account</div>
+                    <h1>Your Recallith.</h1>
+                </div>
+                <span class="account-email" id="header-email"></span>
+            </header>
+            <div class="dashboard" id="dashboard">
+                <section class="card profile-card loading-card"><div class="skeleton"></div></section>
+                <section class="card loading-card"><div class="skeleton"></div></section>
+                <section class="card loading-card"><div class="skeleton"></div></section>
+            </div>
+        </main>
+        <script type="module">
+            import {
+                getSession,
+                getSubscription,
+                getUser,
+                getUserPlan,
+                refreshSession,
+                requireAuth,
+                signOut,
+            } from "./js/auth.js";
+            import { initNav } from "./js/nav.js";
+            if (requireAuth()) {
+                initNav({ activePage: "account.html" });
+                const user = await getUser();
+                if (!user) location.replace("/login.html?next=%2Faccount.html");
+                else {
+                    const [plan, subscription, session] = await Promise.all([
+                        getUserPlan(),
+                        getSubscription(),
+                        getSession(),
+                    ]);
+                    const escapeHTML = (value) =>
+                        String(value).replace(
+                            /[&<>'"]/g,
+                            (character) =>
+                                ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character]
+                        );
+                    const name = user.user_metadata?.full_name || user.email;
+                    const parts = name.trim().split(/\s+/);
+                    const initials = (
+                        parts.length > 1 ? parts[0][0] + parts.at(-1)[0] : name.slice(0, 2)
+                    ).toUpperCase();
+                    const joined = new Intl.DateTimeFormat("en", { month: "long", year: "numeric" }).format(
+                        new Date(user.created_at)
+                    );
+                    document.querySelector("#header-email").textContent = user.email;
+                    document.querySelector("#nav-email").textContent = user.email;
+                    document.querySelector("#sign-out").addEventListener("click", signOut);
+                    const pro = plan === "pro";
+                    const renewal = subscription?.current_period_end
+                        ? new Intl.DateTimeFormat("en", { dateStyle: "long" }).format(
+                              new Date(subscription.current_period_end)
+                          )
+                        : "";
+                    document.querySelector("#dashboard").innerHTML = `
+          <section class="card profile-card"><div class="profile"><div class="profile-avatar">${escapeHTML(initials)}</div><div><h2>${escapeHTML(name)}</h2><p>${escapeHTML(user.email)}</p><p>Member since ${escapeHTML(joined)}</p></div></div></section>
+          <section class="card"><div class="plan-head"><h2 class="card-title">Your plan</h2><span class="plan-badge ${pro ? "pro" : ""}">${pro ? "Pro plan ✓" : "Free plan"}</span></div>${pro ? `<p class="pro-active">✓ Pro features are active</p>${renewal ? `<p class="muted">Renews ${renewal}</p>` : ""}<a class="button card-action" href="mailto:hello@recallith.app?subject=Subscription%20management">Manage subscription</a>` : `<ul class="feature-list"><li>✓ Browser + LLM capture</li><li>✓ 30 days of history</li><li>✓ 10 queries per day</li><li>✓ Local Ollama</li><li>✓ Up to 10,000 memories</li></ul><a class="button primary card-action" href="/pricing.html">Upgrade to Pro →</a>`}</section>
+          <section class="card"><h2 class="card-title">Download Recallith</h2><p class="release-meta" id="release-meta">Finding the latest release…</p><div class="download-options" id="download-options"><span class="muted">Loading downloads…</span></div><p class="muted">Sign in with ${escapeHTML(user.email)} in the app to activate your account features.</p></section>
+          <section class="card connection-card"><h2 class="card-title">Connect the desktop app</h2><ol class="steps"><li>Download and install Recallith above</li><li>Open the app</li><li>Choose Sign in with your account</li><li>Return here to confirm</li><li>The app unlocks your plan automatically</li></ol>${session?.access_token ? `<button class="button" id="connect-desktop" type="button" style="border-color:var(--accent);color:var(--accent)">Open Recallith and finish sign-in</button><p class="muted" id="connect-error" hidden></p>` : `<a class="button" href="/login.html?next=%2Faccount.html">Sign in again to connect Recallith</a>`}</section>`;
+                    const connectButton = document.querySelector("#connect-desktop");
+                    connectButton?.addEventListener("click", async () => {
+                        const error = document.querySelector("#connect-error");
+                        connectButton.disabled = true;
+                        connectButton.textContent = "Preparing secure sign-in…";
+                        const freshSession = await refreshSession();
+                        if (!freshSession?.access_token) {
+                            connectButton.disabled = false;
+                            connectButton.textContent = "Open Recallith and finish sign-in";
+                            if (error) {
+                                error.hidden = false;
+                                error.textContent = "Your browser session expired. Sign in again to connect Recallith.";
+                            }
+                            return;
+                        }
+                        window.location.href = `recallith://auth?token=${encodeURIComponent(freshSession.access_token)}&refresh_token=${encodeURIComponent(freshSession.refresh_token)}`;
+                        window.setTimeout(() => {
+                            connectButton.disabled = false;
+                            connectButton.textContent = "Open Recallith and finish sign-in";
+                        }, 1500);
+                    });
+                    loadRelease();
+                }
+            }
+            async function loadRelease() {
+                const container = document.querySelector("#download-options"),
+                    meta = document.querySelector("#release-meta");
+                try {
+                    const response = await fetch(
+                        "https://api.github.com/repos/bartoszbryg/recallith-core/releases/latest"
+                    );
+                    if (!response.ok) throw new Error();
+                    const release = await response.json();
+                    const ua = navigator.userAgent;
+                    const os = /Windows/i.test(ua) ? "windows" : /Mac/i.test(ua) ? "mac" : "other";
+                    const specs = { windows: ["Windows", /\.(msi|exe)$/i], mac: ["Mac", /\.(dmg|pkg)$/i] };
+                    const choices =
+                        os === "other"
+                            ? [
+                                  ["Windows", /\.(msi|exe)$/i],
+                                  ["Mac", /\.(dmg|pkg)$/i],
+                                  ["Linux", /\.(AppImage|deb)$/i],
+                              ]
+                            : [specs[os]];
+                    const links = choices
+                        .map(([label, pattern]) => {
+                            const asset = release.assets.find((item) => pattern.test(item.name));
+                            return asset
+                                ? `<a class="button primary" href="${asset.browser_download_url}">Download for ${label}</a>`
+                                : "";
+                        })
+                        .join("");
+                    container.innerHTML =
+                        links || `<a class="button primary" href="${release.html_url}">View all downloads</a>`;
+                    meta.textContent = `${release.tag_name} · ${new Intl.DateTimeFormat("en", { dateStyle: "medium" }).format(new Date(release.published_at))}`;
+                } catch {
+                    meta.textContent = "Latest release";
+                    container.innerHTML =
+                        '<a class="button primary" href="https://github.com/bartoszbryg/recallith-core/releases/latest">View downloads on GitHub</a>';
+                }
+            }
+        </script>
+    </body>
+</html>
