@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>Sign in — Recallith</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="css/tokens.css" />
+        <style>
+            body {
+                min-height: 100vh;
+                background: radial-gradient(circle at 50% 0, #211c0f 0, transparent 36%), var(--bg);
+            }
+            .login-nav {
+                height: 70px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .brand {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                text-decoration: none;
+            }
+            .brand img {
+                width: 30px;
+                height: 30px;
+            }
+            .auth-shell {
+                width: min(420px, calc(100% - 32px));
+                margin: 25px auto 70px;
+            }
+            .auth-card {
+                padding: 30px;
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                background: #111;
+                box-shadow: 0 28px 80px #0008;
+            }
+            .auth-card h1 {
+                margin: 0 0 8px;
+                font-size: 42px;
+                text-align: center;
+            }
+            .subhead {
+                margin: 0 0 26px;
+                color: var(--muted);
+                text-align: center;
+            }
+            .tab-list {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                padding: 4px;
+                border-radius: 8px;
+                background: #090909;
+            }
+            .tab {
+                padding: 10px;
+                border: 0;
+                border-radius: 6px;
+                background: transparent;
+                color: var(--muted);
+                font: 600 14px Inter;
+                cursor: pointer;
+            }
+            .tab[aria-selected="true"] {
+                background: #202020;
+                color: var(--text);
+            }
+            .form-panel {
+                padding-top: 25px;
+            }
+            .form-panel[hidden] {
+                display: none;
+            }
+            .field {
+                display: block;
+                margin-bottom: 16px;
+                font-size: 13px;
+                font-weight: 600;
+            }
+            .field input {
+                width: 100%;
+                margin-top: 7px;
+                padding: 13px 14px;
+                border: 1px solid var(--border);
+                border-radius: 6px;
+                background: #0b0b0b;
+                color: var(--text);
+                font: 16px Inter;
+                outline: none;
+            }
+            .field input:focus {
+                border-color: var(--accent);
+                box-shadow: 0 0 0 3px #c9a84c18;
+            }
+            .password-wrap {
+                position: relative;
+            }
+            .password-wrap input {
+                padding-right: 48px;
+            }
+            .password-toggle {
+                position: absolute;
+                right: 4px;
+                bottom: 4px;
+                display: grid;
+                width: 40px;
+                height: 40px;
+                padding: 0;
+                place-items: center;
+                border: 0;
+                border-radius: 5px;
+                background: transparent;
+                color: var(--muted);
+                cursor: pointer;
+            }
+            .password-toggle:hover {
+                color: var(--text);
+                background: #1b1b1b;
+            }
+            .password-toggle:focus-visible {
+                outline: 2px solid var(--accent);
+                outline-offset: -2px;
+            }
+            .password-toggle svg {
+                width: 20px;
+                height: 20px;
+                fill: none;
+                stroke: currentColor;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                stroke-width: 1.8;
+            }
+            .password-toggle .eye-off {
+                display: none;
+            }
+            .password-toggle[aria-pressed="true"] .eye {
+                display: none;
+            }
+            .password-toggle[aria-pressed="true"] .eye-off {
+                display: block;
+            }
+            .submit {
+                width: 100%;
+                min-height: 47px;
+                margin-top: 5px;
+            }
+            .text-link {
+                display: block;
+                margin: 15px auto 0;
+                border: 0;
+                background: none;
+                color: var(--accent);
+                font: inherit;
+                cursor: pointer;
+            }
+            .divider {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin: 24px 0;
+                color: var(--muted);
+                font-size: 12px;
+            }
+            .divider::before,
+            .divider::after {
+                content: "";
+                height: 1px;
+                flex: 1;
+                background: var(--border);
+            }
+            .google {
+                display: flex;
+                width: 100%;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                background: #fff;
+                color: #202124;
+                border-color: #fff;
+                font-weight: 600;
+            }
+            .google svg {
+                width: 18px;
+                height: 18px;
+            }
+            .switch-copy {
+                margin: 22px 0 0;
+                color: var(--muted);
+                font-size: 14px;
+                text-align: center;
+            }
+            .switch-copy button {
+                border: 0;
+                background: none;
+                color: var(--accent);
+                font: inherit;
+                cursor: pointer;
+            }
+            .message {
+                min-height: 22px;
+                margin: 17px 0 0;
+                color: #e05555;
+                font-size: 14px;
+                text-align: center;
+            }
+            .message.success {
+                color: #68c987;
+            }
+            .spinner {
+                display: inline-block;
+                width: 18px;
+                height: 18px;
+                border: 2px solid #1115;
+                border-top-color: #111;
+                border-radius: 50%;
+                animation: spin 0.7s linear infinite;
+            }
+            @keyframes spin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+            .password-wrap {
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="login-nav">
+            <a class="brand wordmark" href="index.html"
+                ><img src="assets/mnemolith.svg" alt="" /><span>Recallith</span></a
+            >
+        </nav>
+        <main class="auth-shell">
+            <section class="auth-card">
+                <h1>Welcome back.</h1>
+                <p class="subhead">Your memory is waiting.</p>
+                <div class="tab-list" role="tablist">
+                    <button class="tab" role="tab" data-panel="signin" aria-selected="true">Sign in</button
+                    ><button class="tab" role="tab" data-panel="signup" aria-selected="false">Create account</button>
+                </div>
+                <form class="form-panel" id="signin" novalidate>
+                    <label class="field"
+                        >Email<input id="signin-email" type="email" autocomplete="email" required
+                    /></label>
+                    <label class="field"
+                        >Password<span class="password-wrap"
+                            ><input
+                                id="signin-password"
+                                type="password"
+                                autocomplete="current-password"
+                                required /><button
+                                class="password-toggle"
+                                type="button"
+                                data-password-toggle="signin-password"
+                                aria-label="Show password"
+                                aria-pressed="false"
+                            >
+                                <svg class="eye" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z" />
+                                    <circle cx="12" cy="12" r="3" /></svg
+                                ><svg class="eye-off" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path
+                                        d="m3 3 18 18M10.6 6.1A10.7 10.7 0 0 1 12 6c6.5 0 10 6 10 6a17.7 17.7 0 0 1-2.1 2.8M6.7 6.7C3.6 8.5 2 12 2 12s3.5 6 10 6c1.5 0 2.8-.3 4-.7M9.9 9.9a3 3 0 0 0 4.2 4.2"
+                                    />
+                                </svg></button></span
+                    ></label>
+                    <button class="button primary submit" type="submit">Sign in</button>
+                    <button class="text-link" id="forgot" type="button">Forgot password?</button>
+                    <div class="divider">or</div>
+                    <button class="button google" data-google type="button">
+                        <svg viewBox="0 0 18 18" aria-hidden="true">
+                            <path
+                                fill="#4285f4"
+                                d="M17.6 9.2c0-.6-.1-1.2-.2-1.8H9v3.4h4.8a4.1 4.1 0 0 1-1.8 2.7v2.2h2.9c1.7-1.6 2.7-3.8 2.7-6.5Z"
+                            />
+                            <path
+                                fill="#34a853"
+                                d="M9 18c2.4 0 4.5-.8 6-2.2L12 13.5c-.8.6-1.8.9-3 .9a5.3 5.3 0 0 1-5-3.7H1v2.3A9 9 0 0 0 9 18Z"
+                            />
+                            <path fill="#fbbc05" d="M4 10.7a5.4 5.4 0 0 1 0-3.4V5H1a9 9 0 0 0 0 8l3-2.3Z" />
+                            <path
+                                fill="#ea4335"
+                                d="M9 3.6c1.3 0 2.5.5 3.4 1.3L15 2.3A8.7 8.7 0 0 0 1 5l3 2.3A5.3 5.3 0 0 1 9 3.6Z"
+                            /></svg
+                        >Continue with Google
+                    </button>
+                    <p class="switch-copy">
+                        Don’t have an account? <button type="button" data-switch="signup">Create one</button>
+                    </p>
+                </form>
+                <form class="form-panel" id="signup" hidden novalidate>
+                    <label class="field"
+                        >Full name<input id="signup-name" type="text" autocomplete="name" required
+                    /></label>
+                    <label class="field"
+                        >Email<input id="signup-email" type="email" autocomplete="email" required
+                    /></label>
+                    <label class="field"
+                        >Password<span class="password-wrap"
+                            ><input
+                                id="signup-password"
+                                type="password"
+                                autocomplete="new-password"
+                                minlength="8"
+                                required /><button
+                                class="password-toggle"
+                                type="button"
+                                data-password-toggle="signup-password"
+                                aria-label="Show password"
+                                aria-pressed="false"
+                            >
+                                <svg class="eye" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z" />
+                                    <circle cx="12" cy="12" r="3" /></svg
+                                ><svg class="eye-off" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path
+                                        d="m3 3 18 18M10.6 6.1A10.7 10.7 0 0 1 12 6c6.5 0 10 6 10 6a17.7 17.7 0 0 1-2.1 2.8M6.7 6.7C3.6 8.5 2 12 2 12s3.5 6 10 6c1.5 0 2.8-.3 4-.7M9.9 9.9a3 3 0 0 0 4.2 4.2"
+                                    />
+                                </svg></button></span
+                    ></label>
+                    <label class="field"
+                        >Confirm password<span class="password-wrap"
+                            ><input
+                                id="signup-confirm"
+                                type="password"
+                                autocomplete="new-password"
+                                minlength="8"
+                                required /><button
+                                class="password-toggle"
+                                type="button"
+                                data-password-toggle="signup-confirm"
+                                aria-label="Show password"
+                                aria-pressed="false"
+                            >
+                                <svg class="eye" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z" />
+                                    <circle cx="12" cy="12" r="3" /></svg
+                                ><svg class="eye-off" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path
+                                        d="m3 3 18 18M10.6 6.1A10.7 10.7 0 0 1 12 6c6.5 0 10 6 10 6a17.7 17.7 0 0 1-2.1 2.8M6.7 6.7C3.6 8.5 2 12 2 12s3.5 6 10 6c1.5 0 2.8-.3 4-.7M9.9 9.9a3 3 0 0 0 4.2 4.2"
+                                    />
+                                </svg></button></span
+                    ></label>
+                    <button class="button primary submit" type="submit">Create account</button>
+                    <div class="divider">or</div>
+                    <button class="button google" data-google type="button">
+                        <svg viewBox="0 0 18 18" aria-hidden="true">
+                            <path
+                                fill="#4285f4"
+                                d="M17.6 9.2c0-.6-.1-1.2-.2-1.8H9v3.4h4.8a4.1 4.1 0 0 1-1.8 2.7v2.2h2.9c1.7-1.6 2.7-3.8 2.7-6.5Z"
+                            />
+                            <path
+                                fill="#34a853"
+                                d="M9 18c2.4 0 4.5-.8 6-2.2L12 13.5c-.8.6-1.8.9-3 .9a5.3 5.3 0 0 1-5-3.7H1v2.3A9 9 0 0 0 9 18Z"
+                            />
+                            <path fill="#fbbc05" d="M4 10.7a5.4 5.4 0 0 1 0-3.4V5H1a9 9 0 0 0 0 8l3-2.3Z" />
+                            <path
+                                fill="#ea4335"
+                                d="M9 3.6c1.3 0 2.5.5 3.4 1.3L15 2.3A8.7 8.7 0 0 0 1 5l3 2.3A5.3 5.3 0 0 1 9 3.6Z"
+                            /></svg
+                        >Continue with Google
+                    </button>
+                    <p class="switch-copy">
+                        Already have an account? <button type="button" data-switch="signin">Sign in</button>
+                    </p>
+                </form>
+                <div class="message" id="message" role="status" aria-live="polite"></div>
+            </section>
+        </main>
+        <script type="module">
+            import { isLoggedIn, signInWithEmail, signInWithGoogle, signUpWithEmail, supabase } from "./js/auth.js";
+            import { initNav } from "./js/nav.js";
+            initNav({ activePage: "login.html" });
+            const params = new URLSearchParams(location.search);
+            const requested = params.get("next");
+            const destination = requested?.startsWith("/") && !requested.startsWith("//") ? requested : "/account.html";
+            if (isLoggedIn()) location.replace(destination);
+            const message = document.querySelector("#message");
+            function showMessage(text, success = false) {
+                message.textContent = text;
+                message.classList.toggle("success", success);
+            }
+            function showPanel(id) {
+                document.querySelectorAll(".form-panel").forEach((panel) => (panel.hidden = panel.id !== id));
+                document
+                    .querySelectorAll(".tab")
+                    .forEach((tab) => tab.setAttribute("aria-selected", String(tab.dataset.panel === id)));
+                showMessage("");
+            }
+            function loading(button, on) {
+                button.disabled = on;
+                if (on) {
+                    button.dataset.label = button.textContent;
+                    button.innerHTML = '<span class="spinner" aria-label="Loading"></span>';
+                } else button.textContent = button.dataset.label;
+            }
+            document
+                .querySelectorAll(".tab")
+                .forEach((tab) => tab.addEventListener("click", () => showPanel(tab.dataset.panel)));
+            document
+                .querySelectorAll("[data-switch]")
+                .forEach((button) => button.addEventListener("click", () => showPanel(button.dataset.switch)));
+            document
+                .querySelectorAll("input")
+                .forEach((input) => input.addEventListener("input", () => showMessage("")));
+            document.querySelectorAll("[data-password-toggle]").forEach((button) =>
+                button.addEventListener("click", () => {
+                    const input = document.getElementById(button.dataset.passwordToggle);
+                    const showing = input.type === "text";
+                    input.type = showing ? "password" : "text";
+                    button.setAttribute("aria-pressed", String(!showing));
+                    button.setAttribute("aria-label", showing ? "Show password" : "Hide password");
+                    input.focus();
+                })
+            );
+            document.querySelectorAll("[data-google]").forEach((button) =>
+                button.addEventListener("click", async () => {
+                    const { error } = await signInWithGoogle();
+                    if (error) showMessage(error.message);
+                })
+            );
+            document.querySelector("#signin").addEventListener("submit", async (event) => {
+                event.preventDefault();
+                const button = event.currentTarget.querySelector(".submit");
+                loading(button, true);
+                const { error } = await signInWithEmail(
+                    document.querySelector("#signin-email").value.trim(),
+                    document.querySelector("#signin-password").value
+                );
+                if (error) {
+                    showMessage(error.message);
+                    loading(button, false);
+                } else location.assign(destination);
+            });
+            document.querySelector("#signup").addEventListener("submit", async (event) => {
+                event.preventDefault();
+                const password = document.querySelector("#signup-password").value;
+                const confirm = document.querySelector("#signup-confirm").value;
+                if (password.length < 8) return showMessage("Password must be at least 8 characters.");
+                if (password !== confirm) return showMessage("Passwords do not match.");
+                const button = event.currentTarget.querySelector(".submit");
+                loading(button, true);
+                const { error } = await signUpWithEmail(
+                    document.querySelector("#signup-email").value.trim(),
+                    password,
+                    document.querySelector("#signup-name").value.trim()
+                );
+                if (error) {
+                    showMessage(error.message);
+                    loading(button, false);
+                } else {
+                    showMessage("Check your email to confirm your account.", true);
+                    loading(button, false);
+                }
+            });
+            document.querySelector("#forgot").addEventListener("click", async () => {
+                const email = document.querySelector("#signin-email").value.trim();
+                if (!email) return showMessage("Enter your email address first.");
+                const { error } = await supabase.auth.resetPasswordForEmail(email, {
+                    redirectTo: `${location.origin}/auth/callback.html?type=recovery`,
+                });
+                showMessage(error ? error.message : "Reset email sent.", !error);
+            });
+            if (params.get("error") === "oauth_failed")
+                showMessage("Google sign-in could not be completed. Please try again.");
+            if (params.get("error") === "recovery_failed")
+                showMessage("This password reset link is invalid or has expired. Request a new one.");
+            if (params.get("success") === "password_updated")
+                showMessage("Password updated. Sign in with your new password.", true);
+        </script>
+    </body>
+</html>
