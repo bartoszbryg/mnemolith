@@ -1,0 +1,8 @@
+/* ── Installation page styles ── */
+
+/* ── Rules ── */
+
+.install-tab--selected {
+  color: var(--accent);
+  border-color: var(--accent);
+}

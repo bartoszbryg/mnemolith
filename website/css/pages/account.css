@@ -1,0 +1,281 @@
+/* ── Account page styles ── */
+
+/* ── Rules ── */
+
+.account-auth-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+@media (max-width:700px) {
+  .account-auth-actions .account-email {
+    display: none;
+  }
+}
+
+.account-main {
+  width: min(860px,calc(100% - 32px));
+  margin: 0 auto;
+  padding: 65px 0 90px;
+}
+
+.account-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.account-heading h1 {
+  margin: 0;
+  font-size: clamp(48px,8vw,72px);
+}
+
+.account-dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.account-card {
+  padding: 28px;
+}
+
+.account-profile-card,
+.account-connection-card {
+  grid-column: 1/-1;
+}
+
+.account-profile {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.account-profile-avatar {
+  display: grid;
+  width: 72px;
+  height: 72px;
+  flex: 0 0 72px;
+  place-items: center;
+  color: #111;
+  font-size: 22px;
+  font-weight: 700;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.account-profile h2,
+.account-card-title {
+  margin: 0 0 6px;
+  font: 32px "Instrument Serif";
+}
+
+.account-profile p {
+  margin: 2px 0;
+  color: var(--muted);
+}
+
+.account-plan-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.account-plan-features {
+  padding: 0;
+  list-style: none;
+  color: #aaa;
+}
+
+.account-plan-features li {
+  margin: 10px 0;
+}
+
+.account-card-action {
+  display: block;
+  width: 100%;
+  margin-top: 22px;
+  text-align: center;
+}
+
+.account-card--loading {
+  min-height: 180px;
+}
+
+.account-downloads {
+  display: grid;
+  gap: 9px;
+}
+
+.account-downloads .button {
+  text-align: center;
+}
+
+@media (max-width:700px) {
+  .account-dashboard {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width:700px) {
+  .account-profile-card,
+  .account-connection-card {
+    grid-column: auto;
+  }
+}
+
+@media (max-width:700px) {
+  .account-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+@media (max-width:700px) {
+  .account-profile {
+    align-items: flex-start;
+  }
+}
+
+.account-deletion-trigger {
+  padding: .5rem 1rem;
+  color: #e05555;
+  font: inherit;
+  border: 1px solid #e05555;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.account-deletion-confirm {
+  color: #fff;
+  background: #a82f2f;
+  border: 1px solid #e05555;
+}
+
+.account-deletion-dialog {
+  padding: 2rem;
+  width: calc(100% - 32px);
+  max-width: 420px;
+  max-height: calc(100vh - 32px);
+  overflow: auto;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.account-deletion-dialog::backdrop {
+  background: rgba(0,0,0,.8);
+}
+
+.account-deletion-dialog h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.account-deletion-dialog label {
+  display: block;
+  margin-top: 1.5rem;
+}
+
+.account-deletion-dialog input {
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: .6rem;
+  padding: .75rem;
+  color: var(--text);
+  font: inherit;
+  background: #0b0b0b;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.account-deletion-dialog input:focus {
+  border-color: var(--accent);
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.account-deletion-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: .75rem;
+  margin-top: 1.5rem;
+}
+
+.account-deletion-dialog button:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+.account-plan-badge {
+  padding: 5px 10px;
+  color: #bbb;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 99px;
+  background: var(--border);
+}
+
+.account-plan-badge--pro {
+  color: #111;
+  background: var(--accent);
+}
+
+.account-deletion {
+  padding: 1.5rem;
+  margin-top: 2rem;
+  border: 1px solid #5a2727;
+  background: #0f0808;
+  border-radius: 8px;
+}
+
+.account-deletion h2 {
+  margin: 0 0 1.25rem;
+  color: #e05555;
+  font-size: 1rem;
+}
+
+.account-deletion h3 {
+  margin: 0 0 .75rem;
+  font-size: 1rem;
+}
+
+.account-deletion p {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.account-deletion-status {
+  color: #e05555;
+  line-height: 1.5;
+}
+
+.account-deletion-status--success {
+  color: #6aaa6a;
+}
+
+.account-connection-steps {
+  margin: 18px 0 24px;
+  padding-left: 22px;
+}
+
+.account-connection-steps li {
+  margin: 9px 0;
+  padding-left: 7px;
+}
+
+.account-release-details {
+  margin: 10px 0 20px;
+  color: var(--muted);
+}
+
+.account-connect-button {
+  color: var(--accent);
+  border-color: var(--accent);
+}
