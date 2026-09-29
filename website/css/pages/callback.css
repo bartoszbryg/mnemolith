@@ -1,0 +1,45 @@
+/* ── Callback page styles ── */
+
+/* ── Rules ── */
+
+/* Retain content-box to preserve the original callback geometry; its 32px spinner plus two 2px borders renders at 36px. */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  margin: 0;
+  color: var(--text);
+  font:
+    14px Inter,
+    sans-serif;
+  background: var(--bg);
+}
+
+* {
+  box-sizing: content-box;
+}
+
+html {
+  box-sizing: content-box;
+  scroll-behavior: auto;
+}
+
+.callback-spinner {
+  display: block;
+  width: 32px;
+  height: 32px;
+  margin: 0 auto 15px;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.callback-loader {
+  text-align: center;
+}

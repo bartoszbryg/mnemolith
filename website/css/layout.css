@@ -1,0 +1,61 @@
+/* ── Shared layout styles ── */
+
+/* ── Layout ── */
+
+.page-container {
+  width: min(1120px, calc(100% - 40px));
+  margin: auto;
+}
+
+.action-group {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 32px 0 16px;
+}
+
+.page-section {
+  padding: 85px 0;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.content-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.site-footer-layout {
+  display: grid;
+  grid-template-columns: 2fr repeat(4, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 760px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .content-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .site-footer-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .action-group {
+    flex-direction: column;
+  }
+}
