@@ -13,25 +13,25 @@ html {
 body {
   margin: 0;
   color: var(--text);
-  font-family: Inter,sans-serif;
+  font-family: Inter, sans-serif;
   line-height: 1.6;
   background: var(--bg);
 }
 
 h1 {
-  font-family: "Instrument Serif",serif;
+  font-family: "Instrument Serif", serif;
   font-weight: 400;
   line-height: 1.05;
 }
 
 h2 {
-  font-family: "Instrument Serif",serif;
+  font-family: "Instrument Serif", serif;
   font-weight: 400;
   line-height: 1.05;
 }
 
 h3 {
-  font-family: "Instrument Serif",serif;
+  font-family: "Instrument Serif", serif;
   font-weight: 400;
   line-height: 1.05;
 }

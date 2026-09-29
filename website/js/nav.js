@@ -13,7 +13,8 @@ function truncate(value, length = 20) {
 function escapeHTML(value) {
   return String(value).replace(
     /[&<>'"]/g,
-    (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character],
+    (character) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character],
   );
 }
 

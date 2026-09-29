@@ -10,7 +10,7 @@
 .landing-hero h1 {
   max-width: 1000px;
   margin: 20px auto;
-  font-size: clamp(54px,8vw,96px);
+  font-size: clamp(54px, 8vw, 96px);
 }
 
 .landing-assurance {
@@ -61,7 +61,7 @@
   gap: 24px;
 }
 
-@media (max-width:760px) {
+@media (max-width: 760px) {
   .landing-plans {
     grid-template-columns: 1fr;
   }
@@ -83,9 +83,14 @@
   border: 1px solid #c9a84c66;
   border-radius: 12px;
   background: linear-gradient(120deg, #1b1810, #121212 60%);
-  box-shadow: 0 0 0 1px #000 inset, 0 12px 35px #0006;
+  box-shadow:
+    0 0 0 1px #000 inset,
+    0 12px 35px #0006;
   cursor: pointer;
-  transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
 }
 
 .landing-launcher::before {
@@ -96,12 +101,15 @@
   content: "";
   background: linear-gradient(90deg, transparent, #c9a84c20, transparent);
   transform: skewX(-18deg);
-  transition: left .55s ease;
+  transition: left 0.55s ease;
 }
 
 .landing-launcher:hover {
   border-color: var(--accent);
-  box-shadow: 0 0 0 1px #000 inset, 0 15px 42px #0009, 0 0 28px #c9a84c18;
+  box-shadow:
+    0 0 0 1px #000 inset,
+    0 15px 42px #0009,
+    0 0 28px #c9a84c18;
   transform: translateY(-2px);
 }
 
@@ -152,7 +160,7 @@
 .landing-launcher-arrow {
   color: var(--accent);
   font-size: 22px;
-  transition: transform .22s ease;
+  transition: transform 0.22s ease;
 }
 
 .landing-launcher:hover .landing-launcher-arrow {
@@ -160,7 +168,7 @@
 }
 
 .landing-launcher--opening .landing-launcher-icon {
-  animation: landing-launcher-glow .75s ease-in-out infinite alternate;
+  animation: landing-launcher-glow 0.75s ease-in-out infinite alternate;
 }
 
 .landing-launcher--opening .landing-launcher-arrow {

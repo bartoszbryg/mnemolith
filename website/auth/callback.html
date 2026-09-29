@@ -1,44 +1,38 @@
 <!doctype html>
 <html lang="en">
-   <head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width,initial-scale=1" />
-      <title>Signing in — Recallith</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Signing in — Recallith</title>
 
-      <link rel="stylesheet" href="../css/tokens.css?v=2" />
-      <link rel="stylesheet" href="../css/reset.css?v=2" />
-      <link rel="stylesheet" href="../css/layout.css?v=2" />
-      <link rel="stylesheet" href="../css/components.css?v=2" />
-      <link rel="stylesheet" href="../css/pages/callback.css?v=2" />
-   </head>
-   <body>
-      <div class="callback-loader">
-         <div class="loading-spinner callback-spinner"></div>
-         <span>Completing secure sign-in…</span>
-      </div>
-      <script type="module">
-         import { supabase } from "../js/auth.js?v=2";
-         const query = new URLSearchParams(location.search);
-         const hash = new URLSearchParams(location.hash.slice(1));
-         const recovery =
-            query.get("type") === "recovery" || hash.get("type") === "recovery";
-         const code = query.get("code");
-         try {
-            const { data, error } = code
-               ? await supabase.auth.exchangeCodeForSession(code)
-               : await supabase.auth.getSession();
-            if (error || !data.session)
-               throw error || new Error("No authentication session");
-            location.replace(
-               recovery ? "/reset-password.html" : "/account.html",
-            );
-         } catch {
-            location.replace(
-               recovery
-                  ? "/login.html?error=recovery_failed"
-                  : "/login.html?error=oauth_failed",
-            );
-         }
-      </script>
-   </body>
+    <link rel="stylesheet" href="../css/tokens.css?v=2" />
+    <link rel="stylesheet" href="../css/reset.css?v=2" />
+    <link rel="stylesheet" href="../css/layout.css?v=2" />
+    <link rel="stylesheet" href="../css/components.css?v=2" />
+    <link rel="stylesheet" href="../css/pages/callback.css?v=2" />
+  </head>
+  <body>
+    <div class="callback-loader">
+      <div class="loading-spinner callback-spinner"></div>
+      <span>Completing secure sign-in…</span>
+    </div>
+    <script type="module">
+      import { supabase } from "../js/auth.js?v=2";
+      const query = new URLSearchParams(location.search);
+      const hash = new URLSearchParams(location.hash.slice(1));
+      const recovery = query.get("type") === "recovery" || hash.get("type") === "recovery";
+      const code = query.get("code");
+      try {
+        const { data, error } = code
+          ? await supabase.auth.exchangeCodeForSession(code)
+          : await supabase.auth.getSession();
+        if (error || !data.session) throw error || new Error("No authentication session");
+        location.replace(recovery ? "/reset-password.html" : "/account.html");
+      } catch {
+        location.replace(
+          recovery ? "/login.html?error=recovery_failed" : "/login.html?error=oauth_failed",
+        );
+      }
+    </script>
+  </body>
 </html>
