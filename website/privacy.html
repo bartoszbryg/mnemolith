@@ -70,13 +70,14 @@
         <p>
           Recallith is local-first. The desktop app, capture system, storage, indexing, and
           retrieval engine run on your machine. Captured memories are not uploaded to Recallith
-          servers. Only limited account, subscription, and session information is stored remotely.
+          servers. Account, subscription, and session information is handled through Supabase. If
+          you choose a cloud AI provider, your question and retrieved memory context are sent to it.
         </p>
         <a class="legal-back-to-top" href="#top">Back to top ↑</a>
       </section>
       <section class="legal-section" id="what-we-collect">
         <h2>2. What we collect</h2>
-        <h3>A. Data that stays on YOUR device — we never see this</h3>
+        <h3>A. Memory data stored on your device</h3>
         <ul>
           <li>Browser tab activity and page content.</li>
           <li>
@@ -85,7 +86,12 @@
           <li>Search queries you make within Recallith.</li>
           <li>All memories, indexed content, and retrieval data.</li>
           <li>
-            Content encrypted with AES-256-GCM using a key stored in your operating system keychain.
+            Conversation text in the events database is encrypted at rest with AES-256-GCM by
+            default, using a key in your operating system keychain.
+          </li>
+          <li>
+            Page URLs, other event metadata, search-index documents and metadata, legacy capture
+            fields, and logs are stored unencrypted on your device.
           </li>
           <li>Data stored in a local SQLite database and ChromaDB.</li>
         </ul>
@@ -96,7 +102,7 @@
           <li>Profile avatar URL, optional and received only through Google OAuth.</li>
           <li>Subscription plan: Free or Pro.</li>
           <li>Account creation date.</li>
-          <li>App session metadata such as device name, operating system, and last-seen time.</li>
+          <li>Authentication session data needed to keep you signed in.</li>
         </ul>
         <h3>C. What we explicitly do NOT collect</h3>
         <ul>
@@ -114,7 +120,7 @@
           <li>Email: account authentication, password resets, and important product updates.</li>
           <li>Name and avatar: display in your account dashboard only.</li>
           <li>Subscription plan: determine access to Free and Pro features.</li>
-          <li>Session metadata: account security and device/session management.</li>
+          <li>Authentication session data: sign-in and session renewal.</li>
         </ul>
         <p>
           We do not use your data for advertising. We do not train AI models on your data. We do not
@@ -125,10 +131,14 @@
       <section class="legal-section" id="security">
         <h2>4. Data storage and security</h2>
         <ul>
-          <li>Your memories are encrypted locally with AES-256-GCM.</li>
+          <li>
+            Conversation text fields in the events database are encrypted locally with AES-256-GCM
+            by default; the other local fields listed above are not.
+          </li>
           <li>Your encryption key is stored in your operating system keychain.</li>
-          <li>Account data is stored with Supabase in US East (North Virginia).</li>
-          <li>Supabase states that it is SOC 2 Type 2 certified.</li>
+          <li>
+            Account data is stored with Supabase; its region depends on the project's configuration.
+          </li>
           <li>
             Passwords are hashed and managed by Supabase using bcrypt; Recallith never receives
             plaintext passwords.
@@ -140,8 +150,9 @@
           </li>
         </ul>
         <p>
-          We cannot access your local memory data under any circumstances because it never leaves
-          your device through Recallith's systems.
+          Recallith does not upload captured memories to its servers. If you select Claude or
+          OpenAI, your question and retrieved memory context are sent to that provider. Local Ollama
+          keeps those prompts on your device.
         </p>
         <a class="legal-back-to-top" href="#top">Back to top ↑</a>
       </section>
@@ -149,11 +160,17 @@
         <h2>5. Third-party services</h2>
         <h3>Supabase</h3>
         <p>
-          Receives your email, optional name/avatar, subscription data, and app-session metadata for
-          authentication and account storage in US East (North Virginia). Read the
+          Receives your email, optional name/avatar, subscription data, and authentication session
+          data for authentication and account storage. Read the
           <a class="legal-link" href="https://supabase.com/privacy" rel="noopener noreferrer"
             >Supabase Privacy Policy</a
           >.
+        </p>
+        <h3>Cloud AI providers</h3>
+        <p>
+          If you choose Claude or OpenAI in the desktop app, that provider receives your question
+          and retrieved memory context to generate an answer. The local Ollama option keeps those
+          prompts on your device.
         </p>
         <h3>Google OAuth</h3>
         <p>

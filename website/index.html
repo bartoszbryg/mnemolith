@@ -39,7 +39,9 @@
         <a class="button button--primary" href="download.html">Download for free</a
         ><a class="button" href="#features">See how it works</a>
       </div>
-      <div class="landing-assurance">Private by default · No cloud storage · Open source</div>
+      <div class="landing-assurance">
+        Local memory storage · Account sign-in online · On-device search
+      </div>
       <div class="card landing-preview">
         <div class="landing-preview-question" id="query"></div>
         <div class="landing-preview-answer" id="answer"></div>
@@ -102,7 +104,8 @@
             <h3>What Recallith stores</h3>
             <ul>
               <li>A local SQLite database</li>
-              <li>AES-256 encrypted text with its key in your OS keychain</li>
+              <li>Conversation text encrypted with AES-256-GCM; key in your OS keychain</li>
+              <li>Page URLs and search-index content stored unencrypted on your device</li>
               <li>Local embeddings for semantic search</li>
             </ul>
           </div>
@@ -110,15 +113,16 @@
             <h3>What Recallith never does</h3>
             <ul>
               <li>Send captured data to our server</li>
-              <li>Require an account or email</li>
+              <li>Upload captured memories to Recallith servers</li>
               <li>Train on your activity</li>
               <li>Share data with advertisers</li>
             </ul>
           </div>
         </div>
         <div class="monospace-block">
-          Data location: %APPDATA%\recallith\ Encryption: AES-256-GCM via OS keychain External
-          calls: zero in Local mode
+          Data location: your user profile's .recallith folder. Conversation text is encrypted;
+          URLs, index data, and logs are not. Account and plan checks use Supabase. Cloud AI mode
+          sends your question and retrieved context to the selected provider.
         </div>
       </div>
     </section>
