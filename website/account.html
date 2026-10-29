@@ -177,21 +177,11 @@
           meta = document.querySelector("#release-meta");
         try {
           const response = await fetch(
-            "https://api.github.com/repos/bartoszbryg/recallith-core/releases/latest",
+            "https://api.github.com/repos/bartoszbryg/mnemolith/releases/tags/v0.1.1",
           );
           if (!response.ok) throw new Error();
           const release = await response.json();
-          const ua = navigator.userAgent;
-          const os = /Windows/i.test(ua) ? "windows" : /Mac/i.test(ua) ? "mac" : "other";
-          const specs = { windows: ["Windows", /\.(msi|exe)$/i], mac: ["Mac", /\.(dmg|pkg)$/i] };
-          const choices =
-            os === "other"
-              ? [
-                  ["Windows", /\.(msi|exe)$/i],
-                  ["Mac", /\.(dmg|pkg)$/i],
-                  ["Linux", /\.(AppImage|deb)$/i],
-                ]
-              : [specs[os]];
+          const choices = [["Windows x64", /^Recallith_0\.1\.1_x64-setup\.exe$/]];
           const links = choices
             .map(([label, pattern]) => {
               const asset = release.assets.find((item) => pattern.test(item.name));
@@ -202,12 +192,12 @@
             .join("");
           container.innerHTML =
             links ||
-            `<a class="button button--primary" href="${release.html_url}">View all downloads</a>`;
+            '<a class="button button--primary" href="https://github.com/bartoszbryg/mnemolith/releases/tag/v0.1.1">View downloads on GitHub</a>';
           meta.textContent = `${release.tag_name} · ${new Intl.DateTimeFormat("en", { dateStyle: "medium" }).format(new Date(release.published_at))}`;
         } catch {
-          meta.textContent = "Latest release";
+          meta.textContent = "Version 0.1.1 · Windows x64";
           container.innerHTML =
-            '<a class="button button--primary" href="https://github.com/bartoszbryg/recallith-core/releases/latest">View downloads on GitHub</a>';
+            '<a class="button button--primary" href="https://github.com/bartoszbryg/mnemolith/releases/tag/v0.1.1">View downloads on GitHub</a>';
         }
       }
       function initializeAccountDeletion() {

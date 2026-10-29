@@ -26,8 +26,13 @@
     <main class="page-section page-container">
       <div class="section-label">Download</div>
       <h2>Put your memory back on your machine.</h2>
-      <div id="downloads" class="action-group"></div>
-      <p id="release" class="supporting-text"></p>
+      <div id="downloads" class="action-group">
+        <a class="button button--primary" href="https://github.com/bartoszbryg/mnemolith/releases/download/v0.1.1/Recallith_0.1.1_x64-setup.exe">Download for Windows x64</a>
+        <a class="button" href="https://github.com/bartoszbryg/mnemolith/releases/tag/v0.1.1">Release notes</a>
+      </div>
+      <p id="release" class="supporting-text">Version 0.1.1 · Recallith_0.1.1_x64-setup.exe · 215,955,151 bytes (205.95 MiB) · Per-user NSIS installer</p>
+      <p class="supporting-text">The installer and app are unsigned. Windows SmartScreen may warn on first run. Verify the SHA-256 below; if you choose to continue, select <strong>More info &gt; Run anyway</strong>.</p>
+      <p class="supporting-text">VirusTotal: <a href="https://www.virustotal.com/gui/file/5376e8f4fdc7b4fecb7f6c8e591be35c0662a340b62ce6e5967b34ef9cff2b57">installer: 0/57 detections</a>. The <a href="https://www.virustotal.com/gui/file/9e0cde501cc1ffdc7626060cbb5b053e098dc8aaec3d44e7be673bebd9c960d6">installed backend: 1/61</a>, flagged only by Bkav Pro (W32.Malware.F6A42FDC), a heuristic detection by a single vendor. Results can change and do not guarantee safety.</p>
       <section id="next" hidden>
         <h2>What’s next</h2>
         <div class="card-grid">
@@ -41,73 +46,38 @@
           <div class="card">3. Choose your capture settings</div>
           <div class="card">4. Start asking questions</div>
         </div>
+        <p class="supporting-text">Extension 0.3.3 is pending Chrome Web Store review. The desktop app and extension pair automatically. Capture starts after you save your capture settings.</p>
       </section>
       <details class="card download-requirements">
         <summary>System requirements</summary>
         <p>
-          macOS 12+ · Windows 10+ · Ubuntu 20.04+ · ~300 MB disk · 4 GB RAM · Chrome or Chromium
+          Windows 10+ (x64) · 4 GB RAM · about 0.75 GB disk space for the app, plus space for your local data · Chrome or Chromium. macOS and Linux packages are not available for this release.
         </p>
       </details>
       <details class="card download-checksums">
         <summary>SHA-256 checksums and verification</summary>
-        <pre class="monospace-block" id="checksums">
-Checksums are published with each signed GitHub release.</pre>
+        <pre class="monospace-block" id="checksums">5376e8f4fdc7b4fecb7f6c8e591be35c0662a340b62ce6e5967b34ef9cff2b57</pre>
         <p>
-          Windows: <code>Get-FileHash .\Recallith-installer.exe</code><br />macOS/Linux:
-          <code>shasum -a 256 Recallith-download</code>
+          In PowerShell, from the download folder, calculate the installer's SHA-256:
         </p>
+        <pre class="monospace-block">Get-FileHash -LiteralPath .\Recallith_0.1.1_x64-setup.exe -Algorithm SHA256</pre>
+        <p>Compare the result with the hash above. PowerShell may display uppercase; letter case does not matter.</p>
       </details>
     </main>
     <script type="module">
       import { initNav } from "./js/nav.js?v=2";
       initNav({ activePage: "download.html" });
-      const repo = "bartoszbryg/Recallith";
       const container = document.querySelector("#downloads");
-      const release = document.querySelector("#release");
       const banner = document.querySelector("#banner");
       const next = document.querySelector("#next");
-      const fallback = `https://github.com/${repo}/releases/latest`;
       if (new URLSearchParams(location.search).get("from") === "search")
         banner.innerHTML =
           '<div class="site-notice">Install Recallith first — it takes 2 minutes</div>';
-      const ua = navigator.userAgent;
-      const preferred = /Windows/i.test(ua)
-        ? "msi"
-        : /Mac/i.test(ua)
-          ? "aarch64.dmg"
-          : /Linux/i.test(ua)
-            ? "AppImage"
-            : "";
-      fetch(`https://api.github.com/repos/${repo}/releases/latest`)
-        .then((response) => {
-          if (!response.ok) throw Error();
-          return response.json();
-        })
-        .then((data) => {
-          const specs = [
-            ["Mac (Apple Silicon)", "_aarch64.dmg"],
-            ["Intel Mac", "_x64.dmg"],
-            ["Windows (.msi)", ".msi"],
-            ["Linux (.AppImage)", ".AppImage"],
-            ["Linux (.deb)", ".deb"],
-          ];
-          container.innerHTML = specs
-            .map(([label, pattern]) => {
-              const asset = data.assets.find((item) => item.name.includes(pattern));
-              if (!asset) return "";
-              return `<a class="button ${preferred && pattern.includes(preferred) ? "primary" : ""}" href="${asset.browser_download_url}">Download for ${label}</a>`;
-            })
-            .join("");
-          release.textContent = `${data.tag_name} · ${new Date(data.published_at).toLocaleDateString()}`;
-          container.querySelectorAll("a").forEach((link) =>
-            link.addEventListener("click", () => {
-              next.hidden = false;
-            }),
-          );
-        })
-        .catch(() => {
-          container.innerHTML = `<a class="button button--primary" href="${fallback}">View downloads on GitHub</a>`;
-        });
+      container.querySelectorAll("a").forEach((link) =>
+        link.addEventListener("click", () => {
+          next.hidden = false;
+        }),
+      );
     </script>
   </body>
 </html>

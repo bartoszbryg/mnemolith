@@ -59,8 +59,6 @@ The full backend and application implementation are closed source. This reposito
 .
 |-- LICENSE
 |-- README.md
-|-- release-assets/
-|   `-- Recallith-Setup.exe
 `-- website/
     |-- index.html
     |-- install.html
@@ -87,7 +85,7 @@ Then open [http://localhost:8080/](http://localhost:8080/). The **Try it** actio
 
 - Follow the [installation guide](website/install.html).
 - Review the [public changelog](website/changelog.html).
-- Download the current Windows installer from [GitHub Releases](https://github.com/bartoszbryg/mnemolith/releases/latest).
+- Download the Windows x64 installer for 0.1.1 from [GitHub Releases](https://github.com/bartoszbryg/mnemolith/releases/tag/v0.1.1).
 
 ## Privacy and security
 

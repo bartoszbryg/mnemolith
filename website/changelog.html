@@ -36,12 +36,13 @@
       const repo = "bartoszbryg/mnemolith";
       const target = document.querySelector("#releases");
 
-      fetch(`https://api.github.com/repos/${repo}/releases`)
+      fetch(`https://api.github.com/repos/${repo}/releases/tags/v0.1.1`)
         .then((response) => {
           if (!response.ok) throw new Error("Could not load releases");
           return response.json();
         })
-        .then((releases) => {
+        .then((release) => {
+          const releases = [release];
           if (releases.length === 0) {
             target.innerHTML = `<p>No releases have been published yet. <a href="https://github.com/${repo}">View the project on GitHub &rarr;</a></p>`;
             return;
@@ -68,7 +69,7 @@
             .join("");
         })
         .catch(() => {
-          target.innerHTML = `<p>Could not load releases. <a href="https://github.com/${repo}/releases">View them on GitHub &rarr;</a></p>`;
+          target.innerHTML = `<p>Could not load the release. <a href="https://github.com/${repo}/releases/tag/v0.1.1">View it on GitHub &rarr;</a></p>`;
         });
     </script>
   </body>
