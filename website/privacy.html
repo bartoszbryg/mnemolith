@@ -37,11 +37,12 @@
     <main class="legal-main">
       <header class="legal-hero">
         <h1>Privacy Policy</h1>
-        <p class="legal-updated">Last updated: August 13, 2026</p>
+        <p class="legal-updated">Last updated: October 29, 2026</p>
       </header>
       <aside class="legal-summary">
         <strong>The short version:</strong> Recallith stores your memories on YOUR device, not ours.
-        We only hold your email and subscription status. That's it.
+        We hold only your account details: email, optional name and avatar, subscription status and
+        sign-in session data.
       </aside>
       <nav class="legal-table-of-contents" aria-label="Table of contents">
         <h2>Table of contents</h2>
@@ -84,6 +85,15 @@
             AI conversation content from ChatGPT, Claude, Gemini, Perplexity, and Microsoft Copilot.
           </li>
           <li>Search queries you make within Recallith.</li>
+          <li>
+            Optional screenshots, if you turn on the screenshot fallback (off by default). They are
+            processed locally by the desktop app to extract text.
+          </li>
+          <li>
+            Capture starts only after you review and save your capture settings in the desktop app.
+            You can choose categories, block sites and pause capture.
+          </li>
+          <li>Authentication tokens are redacted from newly captured content.</li>
           <li>All memories, indexed content, and retrieval data.</li>
           <li>
             Conversation text in the events database is encrypted at rest with AES-256-GCM by
@@ -91,7 +101,7 @@
           </li>
           <li>
             Page URLs, other event metadata, search-index documents and metadata, legacy capture
-            fields, and logs are stored unencrypted on your device.
+            fields, browser queues, and logs are stored unencrypted on your device.
           </li>
           <li>Data stored in a local SQLite database and ChromaDB.</li>
         </ul>
