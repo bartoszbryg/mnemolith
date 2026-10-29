@@ -25,10 +25,9 @@
       <div class="section-label" id="progress">Step 1 of 4</div>
       <h2>Install Recallith</h2>
       <div class="install-tabs">
-        <button class="button install-tab install-tab--selected" data-os="windows">Windows</button
-        ><button class="button install-tab" data-os="mac">Mac</button
-        ><button class="button install-tab" data-os="linux">Linux</button>
+        <button class="button install-tab install-tab--selected" data-os="windows">Windows x64</button>
       </div>
+      <p class="supporting-text">Windows x64 only. macOS and Linux are not available yet.</p>
       <div id="steps"></div>
     </main>
     <script>
@@ -36,23 +35,15 @@
       let os = "windows";
       const instructions = {
         windows: [
-          "Run the .exe installer and follow the prompts.",
-          "If SmartScreen appears, choose More info → Run anyway.",
-        ],
-        mac: [
-          "Open the .dmg and drag Recallith to Applications.",
-          "For an unidentified developer warning, right-click Recallith → Open.",
-        ],
-        linux: [
-          "Run chmod +x Recallith.AppImage, then launch it.",
-          "On Debian-based systems, install the .deb package instead.",
+          '<a href="download.html">Download</a> Recallith_0.1.1_x64-setup.exe for Windows x64 and follow the installer prompts. The installer is unsigned and Windows SmartScreen may warn on first run; verify the SHA-256 shown on the download page before running it.',
+          "If SmartScreen warns, first verify the SHA-256 shown on the download page. If you choose to proceed, select More info &gt; Run anyway.",
         ],
       };
       function render() {
         steps.innerHTML = [
           `<div class="install-step"><b class="install-step-number">1</b><div><h3>Install the desktop app</h3><p>${instructions[os][0]}</p><details><summary>Common issue</summary><p>${instructions[os][1]}</p></details></div></div>`,
-          `<div class="install-step"><b class="install-step-number">2</b><div><h3>Add the Chrome extension</h3><p>Install the browser capture companion.</p><a class="button button--primary" href="${store}" target="_blank">Add to Chrome</a><p id="extension" class="supporting-text">Waiting for extension detection…</p></div></div>`,
-          `<div class="install-step"><b class="install-step-number">3</b><div><h3>First launch</h3><p>Choose your AI provider and capture categories. Encryption keys are held in your OS keychain and cannot be recovered if removed.</p></div></div>`,
+          `<div class="install-step"><b class="install-step-number">2</b><div><h3>Add the Chrome extension</h3><p>Install the browser capture companion. Version 0.3.3 is pending Chrome Web Store review; the live store version may be older.</p><a class="button button--primary" href="${store}" target="_blank">Add to Chrome</a><p id="extension" class="supporting-text">Waiting for extension detection…</p></div></div>`,
+          `<div class="install-step"><b class="install-step-number">3</b><div><h3>First launch</h3><p>Recallith asks new and existing users to review and save capture settings before it captures anything. Choose your AI provider and capture categories. Encryption keys are held in your OS keychain and cannot be recovered if removed.</p></div></div>`,
           `<div class="install-step"><b class="install-step-number">4</b><div><h3>Verify it works</h3><p>Ask a unique question in Claude or ChatGPT, open Recallith, and search for the same phrase.</p><span class="install-status">✓ Your private memory is ready</span></div></div>`,
         ].join("");
       }
